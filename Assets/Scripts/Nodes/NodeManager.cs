@@ -9,36 +9,43 @@ public class NodeManager : MonoBehaviour
     [SerializeField] private Node _rightNode;
     [SerializeField] private NodeConnector _connector;
 
-
-    // Start is called before the first frame update
-    void Start()
+    public void UpdateNode(bool left, RaycastHit hit)
     {
-        
-    }
+        //don't attach both nodes to same platform
+        Node otherNode = left ? _rightNode : _leftNode;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+        //if (hit.transform.gameObject.tag == "Platform" &&
+        //    hit.transform.gameObject == otherNode?.AttachedObj?.gameObject)
+        //{
+        //    Debug.Log("already hit");
+        //}
 
-    public void UpdateNode(bool left, Vector3 newPos)
-    {
-        Node activeNode = left ? _leftNode : _rightNode;
-        activeNode.gameObject.SetActive(true);
-        activeNode.Spawn(newPos);
-
-        if (_leftNode.gameObject.activeSelf && _rightNode.gameObject.activeSelf)
+        if (hit.transform.gameObject.tag != "Platform" || 
+            (hit.transform.gameObject.tag == "Platform" && 
+            hit.transform.gameObject != otherNode.AttachedObj?.gameObject))
         {
-            _connector.Connect(_leftNode.transform.position, _rightNode.transform.position);
+            Node activeNode = left ? _leftNode : _rightNode;
+            activeNode.gameObject.SetActive(true);
+            activeNode.Spawn(hit);
+
+            if (_leftNode.gameObject.activeSelf && _rightNode.gameObject.activeSelf)
+            {
+                _connector.Connect(_leftNode.transform.position, _rightNode.transform.position);
+            }
+
+            if (_leftNode.IsAttached && _rightNode.IsAttached)
+            {
+                //Debug.Log("test");
+            }
         }
 
     }
 
     public void Reset()
     {
-        _leftNode.gameObject.SetActive(false);
-        _rightNode.gameObject.SetActive(false);
+        _leftNode.Reset();
+        _rightNode.Reset();
+
         _connector.gameObject.SetActive(false);
     }
 

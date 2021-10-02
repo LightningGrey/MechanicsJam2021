@@ -4,22 +4,47 @@ using UnityEngine;
 
 public class Node : MonoBehaviour
 {
+    private bool _attached;
+    public bool IsAttached => _attached;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    private Platform _attachedObject;
+    public Platform AttachedObj => _attachedObject;
 
-    public void Spawn(Vector3 newPos)
+
+    public void Spawn(RaycastHit hit)
     {
         if (!gameObject.activeSelf)
         {
             gameObject.SetActive(true);
         }
 
-        gameObject.transform.position = newPos;
+        //detach if clicking elsewhere
+        ChildReset();
+        gameObject.transform.position = hit.point;
+
+        //keep attached if true
+        if (hit.collider.gameObject.tag == "Platform")
+        {
+            hit.collider.gameObject.transform.parent = gameObject.transform;
+
+            _attachedObject = hit.collider.gameObject.GetComponent<Platform>();
+            _attachedObject.ColourChange(gameObject.GetComponent<Renderer>().material.color);
+            _attached = true;
+        }
 
     }
-    
+
+    public void Reset()
+    {
+        ChildReset();
+        gameObject.SetActive(false);
+    }
+
+    public void ChildReset()
+    {
+        _attachedObject?.ColourChange();
+        _attachedObject = null;
+        _attached = false;
+        gameObject.transform.DetachChildren();
+    }
 }

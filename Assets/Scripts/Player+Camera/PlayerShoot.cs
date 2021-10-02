@@ -40,18 +40,7 @@ public class PlayerShoot : MonoBehaviour
         if (Physics.Raycast(_cam.transform.position, _cam.transform.forward, out hit, _range) 
             && hit.transform.tag != "Node")
         {
-            _manager.UpdateNode(left, hit.point);
-
-            //if both nodes are active, call connector
-            //if (_activeLeft != null && _activeRight != null)
-            //{
-            //    if (_activeLeft.activeSelf && _activeRight.activeSelf)
-            //    {
-            //        //Debug.Log("both active");
-            //        _connector.Connect(_activeLeft.transform.position, _activeRight.transform.position);
-            //    }
-            //}
-
+            _manager.UpdateNode(left, hit);
 
         }
     }

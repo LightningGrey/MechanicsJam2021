@@ -4,19 +4,13 @@ using UnityEngine;
 
 public class Platform : MonoBehaviour
 {
-    // Start is called before the first frame update
+    private Renderer _renderer;
+    private Color _baseColour;
+
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-
-
-
+        _renderer = gameObject.GetComponent<Renderer>();
+        _baseColour = new Color(91.0f / 255.0f, 1, 0);
     }
 
     void MovePlatform()
@@ -30,6 +24,21 @@ public class Platform : MonoBehaviour
         yield return new WaitForSeconds(.1f);
     }
 
+
+    //overload function cause lazy
+    public void ColourChange()
+    {
+        _renderer.material.color = _baseColour;
+    }
+    public void ColourChange(Color colour)
+    {
+        _renderer.material.color = colour;
+    }
+
+    public void Reset()
+    {
+       ColourChange();
+    }
 
 
 }

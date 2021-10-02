@@ -5,10 +5,8 @@ using UnityEngine;
 
 public class NodeConnector : MonoBehaviour
 {
-
     public void Connect(Vector3 leftPos, Vector3 rightPos)
     {
-        //Debug.Log(rightPos - leftPos);
 
         gameObject.SetActive(true);
 
