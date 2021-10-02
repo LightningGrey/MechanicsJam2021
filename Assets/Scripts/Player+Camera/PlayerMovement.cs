@@ -4,8 +4,7 @@ using System.Numerics;
 using UnityEngine;
 using Vector3 = UnityEngine.Vector3;
 
-//thank you Brackeys
-//https://www.youtube.com/watch?v=_QajrabyTJc
+
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private CharacterController _controller;
