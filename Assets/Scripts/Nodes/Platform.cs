@@ -14,5 +14,22 @@ public class Platform : MonoBehaviour
     void Update()
     {
         
+
+
+
     }
+
+    void MovePlatform()
+    {
+        StartCoroutine("Move");
+    }
+
+    IEnumerator Move()
+    {
+
+        yield return new WaitForSeconds(.1f);
+    }
+
+
+
 }

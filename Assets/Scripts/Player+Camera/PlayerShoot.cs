@@ -5,15 +5,12 @@ using UnityEngine;
 public class PlayerShoot : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private GameObject _leftNode;
-    private GameObject _activeLeft = null;
-
-    [SerializeField] private GameObject _rightNode;
-    private GameObject _activeRight = null;
+    //[SerializeField] private Node _leftNode;
+    //[SerializeField] private Node _rightNode;
 
     [SerializeField] private Camera _cam;
 
-    [SerializeField] private NodeConnector _connector;
+    [SerializeField] private NodeManager _manager;
 
     [Header("Values")]
     [SerializeField] private float _range = 50.0f;
@@ -33,7 +30,7 @@ public class PlayerShoot : MonoBehaviour
         }
         if (Input.GetButtonDown("Fire3"))
         {
-            Reset();
+            _manager.Reset();
         }
     }
 
@@ -43,62 +40,20 @@ public class PlayerShoot : MonoBehaviour
         if (Physics.Raycast(_cam.transform.position, _cam.transform.forward, out hit, _range) 
             && hit.transform.tag != "Node")
         {
-            //man this looks gross lol
-            if (left)
-            {
-                if (_activeLeft != null)
-                {
-                    if (!_activeLeft.activeSelf)
-                    {
-                        _activeLeft.SetActive(true);
-                    }
-                    _activeLeft.transform.position = hit.point;
-                }
-                else
-                {
-                    _activeLeft = Instantiate(_leftNode, hit.point, Quaternion.LookRotation(hit.normal));
-                }
-            }
-            else
-            {
-                if (_activeRight != null)
-                {
-                    if (!_activeRight.activeSelf)
-                    {
-                        _activeRight.SetActive(true);
-                    }
-                    _activeRight.transform.position = hit.point;
-                }
-                else
-                {
-                    _activeRight = Instantiate(_rightNode, hit.point, Quaternion.LookRotation(hit.normal));
-                }
-            }
+            _manager.UpdateNode(left, hit.point);
 
             //if both nodes are active, call connector
-            if (_activeLeft != null && _activeRight != null)
-            {
-                if (_activeLeft.activeSelf && _activeRight.activeSelf)
-                {
-                    //Debug.Log("both active");
-                    _connector.Connect(_activeLeft.transform.position, _activeRight.transform.position);
-                }
-            }
-        }
-    }
+            //if (_activeLeft != null && _activeRight != null)
+            //{
+            //    if (_activeLeft.activeSelf && _activeRight.activeSelf)
+            //    {
+            //        //Debug.Log("both active");
+            //        _connector.Connect(_activeLeft.transform.position, _activeRight.transform.position);
+            //    }
+            //}
 
-    private void Reset()
-    {
-        if (_activeLeft != null)
-        {
-            _activeLeft.SetActive(false);
-        }
-        if (_activeRight != null)
-        {
-            _activeRight.SetActive(false);
-        }
 
-        _connector.Reset();
+        }
     }
 
 }
