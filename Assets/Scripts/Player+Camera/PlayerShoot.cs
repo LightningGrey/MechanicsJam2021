@@ -22,6 +22,7 @@ public class PlayerShoot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //shoot spheres
         if (Input.GetButtonDown("Fire1"))
         {
             Shoot(true);
@@ -30,8 +31,10 @@ public class PlayerShoot : MonoBehaviour
         {
             Shoot(false);
         }
-
-
+        if (Input.GetButtonDown("Fire3"))
+        {
+            Reset();
+        }
     }
 
     void Shoot(bool left)
@@ -45,6 +48,10 @@ public class PlayerShoot : MonoBehaviour
             {
                 if (_activeLeft != null)
                 {
+                    if (!_activeLeft.activeSelf)
+                    {
+                        _activeLeft.SetActive(true);
+                    }
                     _activeLeft.transform.position = hit.point;
                 }
                 else
@@ -56,6 +63,10 @@ public class PlayerShoot : MonoBehaviour
             {
                 if (_activeRight != null)
                 {
+                    if (!_activeRight.activeSelf)
+                    {
+                        _activeRight.SetActive(true);
+                    }
                     _activeRight.transform.position = hit.point;
                 }
                 else
@@ -65,12 +76,29 @@ public class PlayerShoot : MonoBehaviour
             }
 
             //if both nodes are active, call connector
-            if (_activeLeft && _activeRight)
+            if (_activeLeft != null && _activeRight != null)
             {
-                //Debug.Log("both active");
-                _connector.Connect(_activeLeft.transform.position, _activeRight.transform.position);
+                if (_activeLeft.activeSelf && _activeRight.activeSelf)
+                {
+                    //Debug.Log("both active");
+                    _connector.Connect(_activeLeft.transform.position, _activeRight.transform.position);
+                }
             }
         }
+    }
+
+    private void Reset()
+    {
+        if (_activeLeft != null)
+        {
+            _activeLeft.SetActive(false);
+        }
+        if (_activeRight != null)
+        {
+            _activeRight.SetActive(false);
+        }
+
+        _connector.Reset();
     }
 
 }

@@ -5,29 +5,43 @@ using UnityEngine;
 
 public class NodeConnector : MonoBehaviour
 {
-    private GameObject cube = null;
+    private GameObject _connector = null;
 
     public void Connect(Vector3 leftPos, Vector3 rightPos)
     {
         //Debug.Log(rightPos - leftPos);
 
-        if (cube == null)
+        //create
+        if (_connector == null)
         {
-            cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            cube.GetComponent<Renderer>().material.color = 
+            _connector = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            _connector.GetComponent<Renderer>().material.color = 
                 new Color(49.0f/255.0f, 219.0f / 255.0f, 146.0f / 255.0f);
-            cube.tag = "Node";
-            cube.layer = 6;
+            _connector.tag = "Node";
+            _connector.layer = 6;
+        }
+
+        if (!_connector.activeSelf)
+        {
+            _connector.SetActive(true);
         }
 
         //connector adjustment
         Vector3 vecDist = rightPos - leftPos;
         float dist = vecDist.magnitude;
 
-        cube.transform.localScale = new Vector3(dist, cube.transform.localScale.y, cube.transform.localScale.z);
-        cube.transform.position = leftPos + (vecDist / 2.0f);
-        cube.transform.LookAt(rightPos);
-        cube.transform.Rotate(0, 90, 0, Space.Self);
+        _connector.transform.localScale = new Vector3(dist, _connector.transform.localScale.y, _connector.transform.localScale.z);
+        _connector.transform.position = leftPos + (vecDist / 2.0f);
+        _connector.transform.LookAt(rightPos);
+        _connector.transform.Rotate(0, 90, 0, Space.Self);
+    }
+
+    public void Reset()
+    {
+        if (_connector != null)
+        {
+            _connector.SetActive(false);
+        }
     }
 
 }
