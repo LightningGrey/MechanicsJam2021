@@ -20,4 +20,10 @@ public class NodeConnector : MonoBehaviour
         transform.Rotate(0, 90, 0, Space.Self);
     }
 
+    IEnumerator Move()
+    {
+
+        yield return new WaitForSeconds(.1f);
+    }
+
 }
