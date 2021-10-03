@@ -55,7 +55,7 @@ public class Node : MonoBehaviour
         _attached = false;
         if (gameObject.transform.childCount >= 2)
         {
-            gameObject.transform.GetChild(1);
+            gameObject.transform.GetChild(1).parent = null;
         }
     }
 
