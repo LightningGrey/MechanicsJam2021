@@ -7,7 +7,6 @@ public class NodeConnector : MonoBehaviour
 {
     public void Connect(Vector3 leftPos, Vector3 rightPos)
     {
-
         gameObject.SetActive(true);
 
         //connector adjustment
@@ -22,8 +21,16 @@ public class NodeConnector : MonoBehaviour
 
     IEnumerator Move()
     {
-
-        yield return new WaitForSeconds(.1f);
+        while (transform.localScale.x > 1.0f)
+        {
+            transform.localScale = new Vector3(transform.localScale.x - 0.6f, transform.localScale.y,
+                transform.localScale.z);
+            yield return new WaitForSeconds(.04f);
+            if (transform.localScale.x <= 1.0f)
+            {
+                StopCoroutine("Move");
+            }
+        }
     }
 
 }

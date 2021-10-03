@@ -33,6 +33,7 @@ public class NodeManager : MonoBehaviour
             {
                 activeNode.PreMove(otherNode);
                 otherNode.PreMove(activeNode);
+                _connector.StartCoroutine("Move");
             }
         }
 
