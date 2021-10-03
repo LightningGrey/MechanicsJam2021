@@ -26,7 +26,7 @@ public class NodeManager : MonoBehaviour
             if (_leftNode.gameObject.activeSelf && _rightNode.gameObject.activeSelf)
             {
                 _connector.Connect(_leftNode.transform.position, _rightNode.transform.position);
-                Debug.Log(Vector3.Distance(_leftNode.transform.position, _rightNode.transform.position));
+                //Debug.Log(Vector3.Distance(_leftNode.transform.position, _rightNode.transform.position));
             }
 
             if (_leftNode.IsAttached && _rightNode.IsAttached)

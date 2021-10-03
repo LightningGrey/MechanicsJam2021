@@ -37,6 +37,11 @@ public class PlayerShoot : MonoBehaviour
         {
             SceneManager.LoadScene(0);
         }
+
+        if (Input.GetButtonDown("Cancel"))
+        {
+            Application.Quit();
+        }
     }
 
     void Shoot(bool left)
