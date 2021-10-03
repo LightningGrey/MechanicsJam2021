@@ -50,7 +50,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3871616453139738859}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -176,6 +176,14 @@ PrefabInstance:
     - target: {fileID: 3765511150275826567, guid: 39c357d94d8f32a4d8a6f82a07e89980, type: 3}
       propertyPath: m_Name
       value: electricity_vfx blue
+      objectReference: {fileID: 0}
+    - target: {fileID: 5611694722406118926, guid: 39c357d94d8f32a4d8a6f82a07e89980, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6363589803550314608, guid: 39c357d94d8f32a4d8a6f82a07e89980, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6363589803550314608, guid: 39c357d94d8f32a4d8a6f82a07e89980, type: 3}
       propertyPath: m_Materials.Array.data[0]
