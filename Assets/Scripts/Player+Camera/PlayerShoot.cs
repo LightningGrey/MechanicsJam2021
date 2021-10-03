@@ -6,12 +6,11 @@ using UnityEngine.SceneManagement;
 public class PlayerShoot : MonoBehaviour
 {
     [Header("References")]
-    //[SerializeField] private Node _leftNode;
-    //[SerializeField] private Node _rightNode;
-
     [SerializeField] private Camera _cam;
 
     [SerializeField] private NodeManager _manager;
+
+    [SerializeField] private AudioSource _audio;
 
     [Header("Values")]
     [SerializeField] private float _range = 50.0f;
@@ -49,6 +48,8 @@ public class PlayerShoot : MonoBehaviour
             _manager.UpdateNode(left, hit);
 
         }
+
+        _audio.Play();
     }
 
 }

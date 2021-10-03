@@ -53,7 +53,10 @@ public class Node : MonoBehaviour
 
         _attachedObject = null;
         _attached = false;
-        gameObject.transform.DetachChildren();
+        if (gameObject.transform.childCount >= 2)
+        {
+            gameObject.transform.GetChild(1);
+        }
     }
 
     public void PreMove(Node otherNode)
