@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerShoot : MonoBehaviour
 {
@@ -31,6 +32,11 @@ public class PlayerShoot : MonoBehaviour
         if (Input.GetButtonDown("Fire3"))
         {
             _manager.Reset();
+        }
+
+        if (Input.GetButtonDown("Submit"))
+        {
+            SceneManager.LoadScene(0);
         }
     }
 

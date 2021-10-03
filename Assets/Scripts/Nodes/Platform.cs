@@ -5,23 +5,37 @@ using UnityEngine;
 public class Platform : MonoBehaviour
 {
     private Renderer _renderer;
-    private Color _baseColour;
+    
+    //[SerializeField] 
+    private Color _baseColour = new Color(0, 1, 0);
+    private Vector3 _basePosition;
 
     void Start()
     {
         _renderer = gameObject.GetComponent<Renderer>();
-        _baseColour = new Color(91.0f / 255.0f, 1, 0);
+        _basePosition = transform.position;
     }
 
-    void MovePlatform()
+    public void MovePlatform()
     {
         StartCoroutine("Move");
     }
 
     IEnumerator Move()
     {
+        while (!transform.position.Equals(_basePosition))
+        {
 
-        yield return new WaitForSeconds(.1f);
+            transform.position = Vector3.MoveTowards(transform.position,
+                _basePosition, 0.3f);
+            yield return new WaitForSeconds(.04f);
+
+            if (transform.position.Equals(_basePosition))
+            {
+                //Debug.Log("pain");
+                StopCoroutine("Move");
+            }
+        }
     }
 
 
